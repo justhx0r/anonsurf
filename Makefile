@@ -23,18 +23,18 @@ build-parrot:
 	# Compile binary on parrot's platform. libnim-gintro-dev is required.
 	# Gintro 0.9.8 is required
 	mkdir -p bin/
-	/usr/bin/nim c --mm:refc --hints:off --nimcache:/tmp --out:bin/dnstool -d:release --opt:size nimsrc/dnstool/dnstool.nim
-	/usr/bin/nim c --mm:refc --hints:off --nimcache:/tmp --out:bin/make-torrc -d:release --opt:size nimsrc/anonsurf/make_torrc.nim
-	/usr/bin/nim c --mm:refc --hints:off --nimcache:/tmp --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfGTK.nim
-	/usr/bin/nim c --mm:refc --hints:off --nimcache:/tmp --out:bin/anonsurf -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfCli.nim
+	/usr/bin/nim c  --hints:off --nimcache:/tmp --out:bin/dnstool -d:release --opt:size nimsrc/dnstool/dnstool.nim
+	/usr/bin/nim c  --hints:off --nimcache:/tmp --out:bin/make-torrc -d:release --opt:size nimsrc/anonsurf/make_torrc.nim
+	/usr/bin/nim c  --hints:off --nimcache:/tmp --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfGTK.nim
+	/usr/bin/nim c  --hints:off --nimcache:/tmp --out:bin/anonsurf -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfCli.nim
 
 build:
 	# Build on other system. nimble install gintro is required
 	# Note: AnonSurf 3.3.2 was made with Gintro 0.9.6, and newer version comes with gintro 0.9.8 pre-release 
 	mkdir -p bin/
-	/usr/bin/nim c --mm:refc --hints:off --out:bin/dnstool --opt:size -d:release nimsrc/dnstool/dnstool.nim
-	/usr/bin/nim c --mm:refc --hints:off --out:bin/make-torrc --opt:size -d:release nimsrc/anonsurf/make_torrc.nim
-	/usr/bin/nim c --mm:refc --hints:off --out:bin/anonsurf-gtk --opt:size -d:release nimsrc/anonsurf/AnonSurfGTK.nim
+	/usr/bin/nim c  --hints:off --out:bin/dnstool --opt:size -d:release nimsrc/dnstool/dnstool.nim
+	/usr/bin/nim c  --hints:off --out:bin/make-torrc --opt:size -d:release nimsrc/anonsurf/make_torrc.nim
+	/usr/bin/nim c  --hints:off --out:bin/anonsurf-gtk --opt:size -d:release nimsrc/anonsurf/AnonSurfGTK.nim
 	/usr/bin/nim c --hints:off --out:bin/anonsurf -d:release --opt:size nimsrc/anonsurf/AnonSurfCli.nim
 
 install:
