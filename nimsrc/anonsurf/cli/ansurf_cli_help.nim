@@ -32,6 +32,7 @@ proc helpBanner*() =
   helpCommand("status-boot", "Check if AnonSurf is enabled at boot")
   helpCommand("enable-boot", "Enable AnonSurf at boot")
   helpCommand("disable-boot", "Disable AnonSurf at boot")
+  helpCommand("setup","Setup AnonSurf Dependencies")
   echo(B_BLUE, "  -------------------------------------------------------------------", RESET)
 
 
