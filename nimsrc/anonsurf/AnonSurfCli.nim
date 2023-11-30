@@ -1,6 +1,8 @@
 import osproc
-import httpClient
 import os
+import strutils
+import system
+import httpclient
 import cores / commons / [services_status, ansurf_objects]
 import cores / [handle_killapps, handle_activities]
 import cli / ansurf_cli_help
@@ -21,45 +23,6 @@ let
   callback_msg_proc = cli_init_callback_msg(isDesktop)
   callback_kill_apps = init_cli_askkill(isDesktop)
   sudo = cmd_init_sudo(isDesktop)
-
-proc downloadAndInstallKey(url: string, outputPath: string) =
-  let response = url.getContent()
-  
-  if response.code == 200:
-    let armoredKey = response.body
-    let dearmoredKey = execCmdEx("gpg", @["--dearmor"], input = armoredKey).output
-    writeFile(outputPath, dearmoredKey)
-    echo "Key installed successfully."
-  else:
-    echo "Failed to download key. HTTP Status Code: ", $response.code
-
-proc writeToFile(fileName: string, content: string) =
-  let file = open(fileName, fmWrite)
-  if file == nil:
-    echo "Failed to open file for writing."
-    quit(1)
-
-  writeFile(file, content)
-  close(file)
-  echo "File written successfully."
-
-
-proc setup_whonix() =
-  let uid = getuid()
-  if uid != 0:
-    echo "[ERROR] Need to run as ROOT!"
-    quit(1)  # Exit with failure status
-  start()
-  sleep(10)
-  downloadAndInstallKey("https://www.whonix.org/keys/derivative.asc")
-  execCmd("/usr/bin/apt-get update")
-  sleep(1)
-  execCmd("/usr/bin/apt-get install apt-transport* -y")
-  writeToFile("/etc/apt/sources.list.d/derivative.list","deb tor+https://deb.kicksecure.com/ bookworm main contrib non-free\ndeb-src tor+https://deb.kicksecure.com/ bookworm main contrib non-free\ndeb tor+https://deb.whonix.org/ bookworm main contrib non-free\ndeb-src tor+https://deb.whonix.org/ bookworm main contrib non-free")
-  execCmd("/usr/bin/apt-get update")
-  execCmd("/usr/bin/apt-get install -y sdwdate vanguards tor-geoipdb tor torsocks")
-  echo "[INFO] Installed anonsurf."
-  stop()
 
 proc check_ip() =
   #[
@@ -132,6 +95,52 @@ proc status() =
     else:
       discard execCmd("/usr/bin/nyx --config /etc/anonsurf/nyxrc")
 
+proc setup_anonsurf() =
+  start()
+  echo "sleeping for 10 seconds"
+  sleep(10)
+  # New procedure for setup command
+  if geteuid() != 0:
+    callback_msg_proc("AnonSurf Setup", "Error: Setup must be run as root (uid 0)", SecurityHigh)
+    return
+
+  let packageManager = execCmd("command -v apt-get", false)
+  if packageManager != "apt-get\n":
+    callback_msg_proc("AnonSurf Setup", "Error: Only apt-get package manager is supported for setup", SecurityHigh)
+    return
+
+  # Download the key to /usr/share/keyrings
+  let keyURL = "https://www.kicksecure.com/keys/derivative.asc"
+  let keyDestination = "/usr/share/keyrings/derivative.asc"
+  if execCmd("curl -fsSL " & keyURL & " -o " & keyDestination) != "":
+    callback_msg_proc("AnonSurf Setup", "Error downloading the key", SecurityHigh)
+    return
+
+  # Write to /etc/apt/sources.list.d/derivative.list
+  let sourcesList = """
+    deb [signed-by=/usr/share/keyrings/derivative.asc] https://deb.whonix.org/ bookworm main contrib non-free
+    deb [signed-by=/usr/share/keyrings/derivative.asc] https://deb.kicksecure.com/ bookworm main contrib non-free
+    deb-src [signed-by=/usr/share/keyrings/derivative.asc] https://deb.whonix.org/ bookworm main contrib non-free
+    deb-src [signed-by=/usr/share/keyrings/derivative.asc] https://deb.kicksecure.com/ bookworm main contrib non-free
+  """
+  let derivativeListPath = "/etc/apt/sources.list.d/derivative.list"
+  if writeFile(derivativeListPath, sourcesList):
+    callback_msg_proc("AnonSurf Setup", "Error writing to " & derivativeListPath, SecurityHigh)
+    return
+
+  # Run apt-get update
+  if execCmd("/usr/bin/apt-get update", false) != "":
+    callback_msg_proc("AnonSurf Setup", "Error running apt-get update", SecurityHigh)
+
+  # Install packages (replace "package1 package2 package3" with the actual list)
+  let packagesToInstall = "apt-transport-tor tor-geoipdb tor torsocks vanguards sdwdate"
+  if execCmd("/usr/bin/apt-get install -y " & packagesToInstall, false) != "":
+    callback_msg_proc("AnonSurf Setup", "Error installing packages", SecurityHigh)
+    return
+  let output2 = execCmd("/usr/bin/sed -i s'/http/tor+http/' /etc/apt/sources.list.d/derivative.list")
+  let apt_update = execCmd("/usr/bin/apt-get update")
+  callback_msg_proc("AnonSurf Setup", "Setup completed successfully", SecurityMedium)
+
 
 proc checkOptions() =
   if paramCount() != 1:
@@ -163,10 +172,10 @@ proc checkOptions() =
       checkBoot()
     of "changeid":
       changeID()
-    of "myip":
+    of "myip" or "getip" or "ip" or "publicip": 
       checkIP()
-    of "setup":
-      setup_whonix()
+    of "setup":  # New option for setup
+      setup_anonsurf()
     of "help":
       devBanner()
       helpBanner()

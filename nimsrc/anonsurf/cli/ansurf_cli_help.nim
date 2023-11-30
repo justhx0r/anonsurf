@@ -1,5 +1,6 @@
 import .. / cores / version
 import strformat
+import os
 
 const
   B_MAGENTA = "\e[95m"
@@ -8,6 +9,7 @@ const
   B_CYAN = "\e[96m"
   B_BLUE = "\e[94m"
   RESET = "\e[0m"
+  BANNER = staticRead("banner.txt")
 
 
 proc helpCommand(command, description: string) =
@@ -15,6 +17,7 @@ proc helpCommand(command, description: string) =
 
 
 proc helpBanner*() =
+  echo B_RED + BANNER + "\n\n" + RESET
   echo "\nUsage: ", B_CYAN, "anonsurf ", B_BLUE, "<options>", RESET
   echo(B_BLUE, "  -------------------------------------------------------------------", RESET)
   helpCommand("option", "Description")
@@ -33,6 +36,7 @@ proc helpBanner*() =
 
 
 proc devBanner*() =
+  echo B_RED + BANNER + "\n\n" + RESET
   echo "AnonSurf [", B_RED, surfVersion, RESET, "] - ", B_CYAN, "Command Line Interface", RESET
   echo "\nDeveloped by:"
   echo B_GREEN, "  Lorenzo \"Palinuro\" Faletra", B_BLUE, " <palinuro@parrotsec.org>", RESET
@@ -40,6 +44,7 @@ proc devBanner*() =
   echo B_GREEN, "  Francesco \"Mibofra\" Bonanno", B_BLUE, " <mibofra@parrotsec.org>", RESET
   echo "Extended by:"
   echo B_GREEN, "  Daniel \"Sawyer\" Garcia", B_BLUE, " <dagaba13@gmail.com>", RESET
+  echo B_GREEN, "  justhx0r", B_BLUE, " <justhxor@keemail.me>", RESET  # Add your reference here
   echo "Maintained by:"
   echo B_MAGENTA, "  Nong Hoang \"DmKnght\" Tu", B_BLUE, " <dmknght@parrotsec.org>", RESET
   echo "and a huge amount of Caffeine, Mountain Dew + some GNU/GPL v3 stuff"
