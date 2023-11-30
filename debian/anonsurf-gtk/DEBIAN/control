@@ -1,0 +1,14 @@
+Package: anonsurf-gtk
+Source: anonsurf
+Version: 3.5.3+victoria1
+Architecture: amd64
+Maintainer: Parrot Team <team@parrotsec.org>
+Installed-Size: 691
+Depends: anonsurf, libc6, onionshare, onioncircuits
+Section: net
+Priority: optional
+Homepage: https://www.parrotsec.org/
+Description: Graphic Interface for AnonSurf
+ AnonSurf's graphic user interface and
+ menu launcher written in Nim and
+ gintro library (a binding of GTK framework).

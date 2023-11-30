@@ -13,9 +13,9 @@ Homepage: https://www.parrotsec.org/
 Package: anonsurf
 Architecture: any
 Priority: optional
-Depends: tor, tor-geoipdb, vanguards, sdwdate, snowflake-proxy, snowflake-client, onioncircuits, bash (>= 5.0), iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
-Recommends: libnotify-bin, connect-proxy, onionshare, torsocks, tor-geoipdb, parrot-menu
-Suggests: gnunet-gtk, gnunet, vidalia, resolvconf
+Depends:snowflake-client, bash (>= 5.0),apt-transport-tor,vanguards,torsocks,apt-transport-tor, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
+Recommends: i2p-router,i2p,tor-geoipdb,haveged,apt-transport-tor, libnotify-bin, connect-proxy, onionshare, torsocks, tor-geoipdb, parrot-menu
+Suggests: gnunet-gtk,snowflake-proxy, gnunet, vidalia, resolvconf
 Description: Anonymization toolkit for Parrot Security OS
  AnonSurf is an anonymization toolkit that helps
  prevent tracking and surveillance of the end-user.
@@ -28,7 +28,7 @@ Description: Anonymization toolkit for Parrot Security OS
 Package: anonsurf-gtk
 Architecture: any
 Priority: optional
-Depends: anonsurf, libc6
+Depends: anonsurf, libc6,onionshare,onioncircuits
 Description: Graphic Interface for AnonSurf
  AnonSurf's graphic user interface and
  menu launcher written in Nim and
@@ -38,6 +38,7 @@ Package: anonsurf-cli
 Architecture: any
 Priority: optional
 Depends: anonsurf, libc6
+Recommends: i2p,i2p-router
 Description: Command Line Interfaced for AnonSurf
  AnonSurf's command line interface and
  menu launcher written in Nim and

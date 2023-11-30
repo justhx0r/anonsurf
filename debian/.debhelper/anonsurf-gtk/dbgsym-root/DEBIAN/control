@@ -1,0 +1,13 @@
+Package: anonsurf-gtk-dbgsym
+Package-Type: ddeb
+Source: anonsurf
+Version: 3.5.3+victoria1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: Parrot Team <team@parrotsec.org>
+Installed-Size: 255
+Depends: anonsurf-gtk (= 3.5.3+victoria1)
+Section: debug
+Priority: optional
+Description: debug symbols for anonsurf-gtk
+Build-Ids: 2094c44d03cf0e9eacc0e9b764b1b30d06fb2587

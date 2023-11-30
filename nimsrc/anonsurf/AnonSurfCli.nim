@@ -1,10 +1,5 @@
 import osproc
-import std/posix
 import os
-import strformat
-import strutils
-import system
-import httpclient
 import cores / commons / [services_status, ansurf_objects]
 import cores / [handle_killapps, handle_activities]
 import cli / ansurf_cli_help
@@ -25,6 +20,7 @@ let
   callback_msg_proc = cli_init_callback_msg(isDesktop)
   callback_kill_apps = init_cli_askkill(isDesktop)
   sudo = cmd_init_sudo(isDesktop)
+
 
 proc check_ip() =
   #[
@@ -97,51 +93,6 @@ proc status() =
     else:
       discard execCmd("/usr/bin/nyx --config /etc/anonsurf/nyxrc")
 
-proc setup_anonsurf() =
-  start()
-  echo "sleeping for 10 seconds"
-  sleep(10)
-  # New procedure for setup command
-  if getuid() != 0:
-    callback_msg_proc("AnonSurf Setup", "Error: Setup must be run as root (uid 0)", SecurityHigh)
-    return
-
-  let packageManager = execCmd("command -v apt-get")
-  if packageManager != 0:
-    callback_msg_proc("AnonSurf Setup", "Error: Only apt-get package manager is supported for setup", SecurityHigh)
-    return
-
-  # Download the key to /usr/share/keyrings
-  let keyURL = "https://www.kicksecure.com/keys/derivative.asc"
-  let keyDestination = "/usr/share/keyrings/derivative.asc"
-  if execCmd(fmt"curl -fsSL {keyURL} -o {keyDestination}") != 0:
-    callback_msg_proc("AnonSurf Setup", "Error downloading the key", SecurityHigh)
-    return
-
-  # Write to /etc/apt/sources.list.d/derivative.list
-  let sourcesList = """
-#Created by anonsurf setup
-deb [signed-by=/usr/share/keyrings/derivative.asc] https://deb.whonix.org/ bookworm main contrib non-free
-deb [signed-by=/usr/share/keyrings/derivative.asc] https://deb.kicksecure.com/ bookworm main contrib non-free
-deb-src [signed-by=/usr/share/keyrings/derivative.asc] https://deb.whonix.org/ bookworm main contrib non-free
-deb-src [signed-by=/usr/share/keyrings/derivative.asc] https://deb.kicksecure.com/ bookworm main contrib non-free
-  """
-  let derivativeListPath = "/etc/apt/sources.list.d/derivative.list"
-  writeFile(derivativeListPath, sourcesList)
-  
-  # Run apt-get update
-  if execCmd("/usr/bin/apt-get update") != 0:
-    callback_msg_proc("AnonSurf Setup", "Error running apt-get update", SecurityHigh)
-
-  # Install packages (replace "package1 package2 package3" with the actual list)
-  let packagesToInstall = "apt-transport-tor tor-geoipdb tor torsocks vanguards sdwdate"
-  if execCmd(fmt"/usr/bin/apt-get install -y {packagesToInstall}") != 0:
-    callback_msg_proc("AnonSurf Setup", "Error installing packages", SecurityHigh)
-    return
-  let output2 = execCmd("/usr/bin/sed -i s'/http/tor+http/' /etc/apt/sources.list.d/derivative.list")
-  let apt_update = execCmd("/usr/bin/apt-get update")
-  callback_msg_proc("AnonSurf Setup", "Setup completed successfully", SecurityMedium)
-
 
 proc checkOptions() =
   if paramCount() != 1:
@@ -175,8 +126,6 @@ proc checkOptions() =
       changeID()
     of "myip":
       checkIP()
-    of "setup":  # New option for setup
-      setup_anonsurf()
     of "help":
       devBanner()
       helpBanner()

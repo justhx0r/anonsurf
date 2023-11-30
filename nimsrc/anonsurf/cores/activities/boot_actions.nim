@@ -12,10 +12,8 @@ proc ansurf_boot_enable*(sudo: string): int =
   ]#
   const
     command = "/usr/bin/systemctl enable anonsurfd"
-  let output_enable_anonsurfd = execCmd(fmt"{sudo} {command}")
-  let output_disable_tor = execCmd(fmt"{sudo} /usr/bin/systemctl disable tor")
-  let output_enable_vanguards = execCmd(fmt"{sudo} /usr/bin/systemctl enable vanguards")
-  return output_enable_anonsurfd
+  return execCmd(fmt"{sudo} {command}")
+
 
 proc ansurf_boot_disable*(sudo: string): int =
   #[
@@ -26,9 +24,8 @@ proc ansurf_boot_disable*(sudo: string): int =
   ]#
   const
     command = "/usr/bin/systemctl disable anonsurfd"
-  let output_disable_anonsurfd = execCmd(fmt"{sudo} {command}")
-  let output_enable_tor = execCmd(fmt"{sudo} /usr/bin/systemctl enable tor")
-  return output_disable_anonsurfd
+  return execCmd(fmt"{sudo} {command}")
+
 
 proc ansurf_boot_status*(): bool =
   #[

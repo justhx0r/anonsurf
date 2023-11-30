@@ -1,0 +1,7 @@
+anonsurf-cli-dbgsym_3.5.3+victoria1_amd64.ddeb debug optional automatic=yes
+anonsurf-cli_3.5.3+victoria1_amd64.deb net optional
+anonsurf-dbgsym_3.5.3+victoria1_amd64.ddeb debug optional automatic=yes
+anonsurf-gtk-dbgsym_3.5.3+victoria1_amd64.ddeb debug optional automatic=yes
+anonsurf-gtk_3.5.3+victoria1_amd64.deb net optional
+anonsurf_3.5.3+victoria1_amd64.buildinfo net optional
+anonsurf_3.5.3+victoria1_amd64.deb net optional

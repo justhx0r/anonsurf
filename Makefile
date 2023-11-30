@@ -1,10 +1,14 @@
 os_name = "$(shell cat /etc/os-release | grep "^ID=" | cut -d = -f 2)"
+NIMFLAGS := 
 
-
-all: build install
+all: clean build install clean debuild
 
 clean:
 	rm -rf bin
+
+debuild:
+	debuild
+
 
 uninstall:
 	# Remove config files
@@ -23,49 +27,49 @@ build-parrot:
 	# Compile binary on parrot's platform. libnim-gintro-dev is required.
 	# Gintro 0.9.8 is required
 	mkdir -p bin/
-	/usr/bin/nim c  --hints:off --warnings:off  --out:bin/dnstool -d:release --opt:size nimsrc/dnstool/dnstool.nim
-	/usr/bin/nim c  --hints:off --warnings:off  --out:bin/make-torrc -d:release --opt:size nimsrc/anonsurf/make_torrc.nim
-	/usr/bin/nim c  --hints:off --warnings:off  --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfGTK.nim
-	/usr/bin/nim c  --hints:off --warnings:off  --out:bin/anonsurf -p:/usr/include/nim/ -d:release --opt:size nimsrc/anonsurf/AnonSurfCli.nim
+	nim c $(NIMFLAGS) --out:bin/dnstool nimsrc/dnstool/dnstool.nim
+	nim c $(NIMFLAGS) --out:bin/make-torrc -d:release nimsrc/anonsurf/make_torrc.nim
+	nim c $(NIMFLAGS) --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
+	nim c $(NIMFLAGS) --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
 build:
 	# Build on other system. nimble install gintro is required
 	# Note: AnonSurf 3.3.2 was made with Gintro 0.9.6, and newer version comes with gintro 0.9.8 pre-release 
 	mkdir -p bin/
-	/usr/bin/nim c  --hints:off --warnings:off --out:bin/dnstool --opt:size -d:release nimsrc/dnstool/dnstool.nim
-	/usr/bin/nim c  --hints:off --warnings:off --out:bin/make-torrc --opt:size -d:release nimsrc/anonsurf/make_torrc.nim
-	/usr/bin/nim c  --hints:off --warnings:off --out:bin/anonsurf-gtk --opt:size -d:release nimsrc/anonsurf/AnonSurfGTK.nim
-	/usr/bin/nim c --hints:off --warnings:off --out:bin/anonsurf -d:release --opt:size nimsrc/anonsurf/AnonSurfCli.nim
+	nim c $(NIMFLAGS) --out:bin/dnstool nimsrc/dnstool/dnstool.nim
+	nim c $(NIMFLAGS) --out:bin/make-torrc nimsrc/anonsurf/make_torrc.nim
+	nim c $(NIMFLAGS) --out:bin/anonsurf-gtk -d:release nimsrc/anonsurf/AnonSurfGTK.nim
+	nim c $(NIMFLAGS) --out:bin/anonsurf -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
 install:
 	# Create all folders
-	mkdir -p $(DESTDIR)/etc/anonsurf/
-	mkdir -p $(DESTDIR)/usr/lib/anonsurf/
-	mkdir -p $(DESTDIR)/usr/bin/
-	mkdir -p $(DESTDIR)/usr/share/applications/
-	mkdir -p $(DESTDIR)/lib/systemd/system/
+	sudo mkdir -p $(DESTDIR)/etc/anonsurf/
+	sudo mkdir -p $(DESTDIR)/usr/lib/anonsurf/
+	sudo mkdir -p $(DESTDIR)/usr/bin/
+	sudo mkdir -p $(DESTDIR)/usr/share/applications/
+	sudo mkdir -p $(DESTDIR)/lib/systemd/system/
 
 	# Copy binaries to system
-	cp bin/anonsurf $(DESTDIR)/usr/bin/anonsurf
-	cp bin/anonsurf-gtk $(DESTDIR)/usr/bin/anonsurf-gtk
-	cp bin/dnstool $(DESTDIR)/usr/bin/dnstool
-	cp bin/make-torrc $(DESTDIR)/usr/lib/anonsurf/make-torrc
-	cp scripts/* $(DESTDIR)/usr/lib/anonsurf/
+	sudo cp bin/anonsurf $(DESTDIR)/usr/bin/anonsurf
+	sudo cp bin/anonsurf-gtk $(DESTDIR)/usr/bin/anonsurf-gtk
+	sudo cp bin/dnstool $(DESTDIR)/usr/bin/dnstool
+	sudo cp bin/make-torrc $(DESTDIR)/usr/lib/anonsurf/make-torrc
+	sudo cp scripts/* $(DESTDIR)/usr/lib/anonsurf/
 
 	# Copy launchers
 	if [ os_name = "parrot" ]; then \
-		cp launchers/anon-change-identity.desktop $(DESTDIR)/usr/share/applications/; \
-		cp launchers/anon-surf-start.desktop $(DESTDIR)/usr/share/applications/; \
-		cp launchers/anon-surf-stop.desktop $(DESTDIR)/usr/share/applications/; \
-		cp launchers/anon-check-ip.desktop $(DESTDIR)/usr/share/applications/; \
-		cp launchers/anon-gui.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/anon-change-identity.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/anon-surf-start.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/anon-surf-stop.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/anon-check-ip.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/anon-gui.desktop $(DESTDIR)/usr/share/applications/; \
 	else \
-		cp launchers/non-native/*.desktop $(DESTDIR)/usr/share/applications/; \
+		sudo cp launchers/non-native/*.desktop $(DESTDIR)/usr/share/applications/; \
 	fi
 
 	# Copy configs
-	cp configs/bridges.txt $(DESTDIR)/etc/anonsurf/.
-	cp configs/onion.pac $(DESTDIR)/etc/anonsurf/.
+	sudo cp configs/bridges.txt $(DESTDIR)/etc/anonsurf/.
+	sudo cp configs/onion.pac $(DESTDIR)/etc/anonsurf/.
 
 	# Copy daemon service
-	cp sys-units/anonsurfd.service $(DESTDIR)/lib/systemd/system/anonsurfd.service
+	sudo cp sys-units/anonsurfd.service $(DESTDIR)/lib/systemd/system/anonsurfd.service
