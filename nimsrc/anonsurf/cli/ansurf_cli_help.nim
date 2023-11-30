@@ -43,7 +43,6 @@ proc devBanner*() =
   echo B_GREEN, "  Lisetta \"Sheireen\" Ferrero", B_BLUE, " <sheireen@parrotsec.org>", RESET
   echo B_GREEN, "  Francesco \"Mibofra\" Bonanno", B_BLUE, " <mibofra@parrotsec.org>", RESET
   echo "Extended by:"
-  echo B_GREEN, "  Daniel \"Sawyer\" Garcia", B_BLUE, " <dagaba13@gmail.com>", RESET
   echo B_GREEN, "  \"justhx0r\"", B_BLUE, " <justhxor@keemail.me>", RESET  # Add your reference here
   echo "Maintained by:"
   echo B_MAGENTA, "  \"justhx0r\"", B_BLUE, " <justhxor@keemail.me>", RESET
