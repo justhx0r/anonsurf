@@ -17,7 +17,7 @@ proc helpCommand(command, description: string) =
 
 
 proc helpBanner*() =
-  echo B_RED + BANNER + "\n\n" + RESET
+  echo B_RED, BANNER, "\n\n", RESET
   echo "\nUsage: ", B_CYAN, "anonsurf ", B_BLUE, "<options>", RESET
   echo(B_BLUE, "  -------------------------------------------------------------------", RESET)
   helpCommand("option", "Description")
@@ -36,7 +36,7 @@ proc helpBanner*() =
 
 
 proc devBanner*() =
-  echo B_RED + BANNER + "\n\n" + RESET
+  echo B_RED, BANNER, "\n\n", RESET
   echo "AnonSurf [", B_RED, surfVersion, RESET, "] - ", B_CYAN, "Command Line Interface", RESET
   echo "\nDeveloped by:"
   echo B_GREEN, "  Lorenzo \"Palinuro\" Faletra", B_BLUE, " <palinuro@parrotsec.org>", RESET
