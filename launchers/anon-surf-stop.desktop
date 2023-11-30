@@ -6,4 +6,4 @@ Exec=/usr/bin/anonsurf stop
 Comment=Stop routing all internet packets/traffic through Tor
 Name=Anonsurf Stop
 Icon=player_stop
-Categories=anonsurf;
+Categories=anonsurf;Network;

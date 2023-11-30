@@ -6,4 +6,4 @@ Exec=/usr/bin/anonsurf changeid
 Name=Change exit node
 Comment=Changes Tor node giving us new IP address
 Icon=reload
-Categories=anonsurf;
+Categories=anonsurf;Network;

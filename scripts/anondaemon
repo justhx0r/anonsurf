@@ -55,6 +55,8 @@ TOR_UID="debian-tor"
 
 function disableService {
 	if [ ! -e /tmp/tor.pid ]; then
+		echo -e -n "\n $GREEN*$BLUE Stopping service systemd-resolved${RESETCOLOR}"
+		/usr/sbin/service systemd-resolved stop 2>/dev/null || echo " (already stopped)"
 		echo -e -n "\n $GREEN*$BLUE Stopping service nscd${RESETCOLOR}"
 		/usr/sbin/service nscd stop 2>/dev/null || echo " (already stopped)"
 		echo -e -n "\n $GREEN*$BLUE Stopping service resolvconf"
@@ -72,6 +74,7 @@ function enableService {
 	echo -e -n " $GREEN*$BLUE Restarting services\n"
 	/usr/sbin/service resolvconf start || service resolvconf restart || true
 	/usr/sbin/service dnsmasq start || true
+	/usr/sbin/service systemd-resolved start || true
 	/usr/sbin/service nscd start || true
 	echo -e " $GREEN*$BLUE It is safe to not worry for dnsmasq and nscd start errors if they are not installed.$RESETCOLOR"
 	# sleep 1

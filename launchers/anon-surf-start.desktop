@@ -6,4 +6,4 @@ Exec=/usr/bin/anonsurf start
 Comment=Routes all internet packets/traffic through Tor
 Name=Anonsurf Start
 Icon=stock_media-play
-Categories=anonsurf;
+Categories=anonsurf;Network;

@@ -1,4 +1,5 @@
 import osproc
+import httpClient
 import os
 import cores / commons / [services_status, ansurf_objects]
 import cores / [handle_killapps, handle_activities]
@@ -21,6 +22,44 @@ let
   callback_kill_apps = init_cli_askkill(isDesktop)
   sudo = cmd_init_sudo(isDesktop)
 
+proc downloadAndInstallKey(url: string, outputPath: string) =
+  let response = url.getContent()
+  
+  if response.code == 200:
+    let armoredKey = response.body
+    let dearmoredKey = execCmdEx("gpg", @["--dearmor"], input = armoredKey).output
+    writeFile(outputPath, dearmoredKey)
+    echo "Key installed successfully."
+  else:
+    echo "Failed to download key. HTTP Status Code: ", $response.code
+
+proc writeToFile(fileName: string, content: string) =
+  let file = open(fileName, fmWrite)
+  if file == nil:
+    echo "Failed to open file for writing."
+    quit(1)
+
+  writeFile(file, content)
+  close(file)
+  echo "File written successfully."
+
+
+proc setup_whonix() =
+  let uid = getuid()
+  if uid != 0:
+    echo "[ERROR] Need to run as ROOT!"
+    quit(1)  # Exit with failure status
+  start()
+  sleep(10)
+  downloadAndInstallKey("https://www.whonix.org/keys/derivative.asc")
+  execCmd("/usr/bin/apt-get update")
+  sleep(1)
+  execCmd("/usr/bin/apt-get install apt-transport* -y")
+  writeToFile("/etc/apt/sources.list.d/derivative.list","deb tor+https://deb.kicksecure.com/ bookworm main contrib non-free\ndeb-src tor+https://deb.kicksecure.com/ bookworm main contrib non-free\ndeb tor+https://deb.whonix.org/ bookworm main contrib non-free\ndeb-src tor+https://deb.whonix.org/ bookworm main contrib non-free")
+  execCmd("/usr/bin/apt-get update")
+  execCmd("/usr/bin/apt-get install -y sdwdate vanguards tor-geoipdb tor torsocks")
+  echo "[INFO] Installed anonsurf."
+  stop()
 
 proc check_ip() =
   #[
@@ -126,6 +165,8 @@ proc checkOptions() =
       changeID()
     of "myip":
       checkIP()
+    of "setup":
+      setup_whonix()
     of "help":
       devBanner()
       helpBanner()

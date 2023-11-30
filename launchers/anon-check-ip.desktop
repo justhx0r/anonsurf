@@ -6,4 +6,4 @@ Exec=anonsurf myip
 Name=Check IP address
 Comment=Print the current IP address
 Icon=network-server
-Categories=anonsurf;
+Categories=anonsurf;Network;
