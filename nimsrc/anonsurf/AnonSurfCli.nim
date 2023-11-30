@@ -100,7 +100,7 @@ proc setup_anonsurf() =
   echo "sleeping for 10 seconds"
   sleep(10)
   # New procedure for setup command
-  if geteuid() != 0:
+  if getuid() != 0:
     callback_msg_proc("AnonSurf Setup", "Error: Setup must be run as root (uid 0)", SecurityHigh)
     return
 
