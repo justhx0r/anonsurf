@@ -27,10 +27,10 @@ build-parrot:
 	# Compile binary on parrot's platform. libnim-gintro-dev is required.
 	# Gintro 0.9.8 is required
 	mkdir -p bin/
-	nim c $(NIMFLAGS) --out:bin/dnstool nimsrc/dnstool/dnstool.nim
-	nim c $(NIMFLAGS) --out:bin/make-torrc -d:release nimsrc/anonsurf/make_torrc.nim
-	nim c $(NIMFLAGS) --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
-	nim c $(NIMFLAGS) --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
+	nim c $(NIMFLAGS) --opt:size --out:bin/dnstool nimsrc/dnstool/dnstool.nim
+	nim c $(NIMFLAGS) --opt:size --out:bin/make-torrc -d:release nimsrc/anonsurf/make_torrc.nim
+	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
+	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
 build:
 	# Build on other system. nimble install gintro is required

@@ -91,7 +91,7 @@ proc status() =
     if not fileExists("/etc/anonsurf/nyxrc"):
       callback_msg_proc("AnonSurf Status", "Nyxrc is not found", SecurityHigh)
     else:
-      discard execCmd("/usr/bin/nyx --config /etc/anonsurf/nyxrc")
+      discard execCmd("/usr/bin/nyx")
 
 
 proc checkOptions() =
