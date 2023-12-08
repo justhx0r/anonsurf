@@ -39,4 +39,4 @@ proc ansurf_core_restart*(sudo: string): int =
 
 
 proc ansurf_core_status*(): int =
-  return execCmd("/usr/bin/nyx --config /etc/anonsurf/nyxrc")
+  return execCmd("/usr/bin/nyx")
