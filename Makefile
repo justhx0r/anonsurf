@@ -1,5 +1,5 @@
 os_name = "$(shell cat /etc/os-release | grep "^ID=" | cut -d = -f 2)"
-NIMFLAGS :=-x:off --panics:off -f:on --embedsrc:off --nimMainPrefix:"AnonSurf" -a:on --docCmd:"pass" --tlsEmulation:off  --warnings:off --genScript:off --benchmarkVM:off --profileVM:off --mm:arc   --implicitStatic:on --hints:off --stackTrace:off --lineTrace:off -t:on  
+NIMFLAGS :=-t:on --panics:off -f:on --embedsrc:off --nimMainPrefix:"AnonSurf" -a:on --docCmd:"pass" --tlsEmulation:off  --warnings:off --genScript:off --benchmarkVM:off --profileVM:off --mm:arc   --implicitStatic:on --hints:off --stackTrace:off --lineTrace:off 
 
 all: clean build install
 
