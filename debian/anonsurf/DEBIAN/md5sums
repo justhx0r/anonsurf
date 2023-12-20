@@ -1,0 +1,9 @@
+47d0ccde16b9d51fe882fa1a9a2c3587  lib/systemd/system/anonsurfd.service
+01d634338bc8361845c8b9fdd10aca5d  usr/bin/dnstool
+e0f0a742517127c0c81667a5b8212fc6  usr/lib/anonsurf/anondaemon
+ed06104e564b4e4170898f4ddf7287f8  usr/lib/anonsurf/make-torrc
+5b6ad0c453f77dbf21f38251c17304cc  usr/lib/anonsurf/safekill
+cdb9e3608f7220d43253d03de1432862  usr/share/bash-completion/completions/anonsurf
+ab2e518043933e80e2af3b39440a5e0f  usr/share/doc/anonsurf/changelog.gz
+fb409c036aa3b60ded281ce8d24883f1  usr/share/doc/anonsurf/copyright
+595cd1e3b3d95e75521b56d66ce26d63  usr/share/man/man1/anonsurf.1.gz

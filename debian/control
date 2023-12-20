@@ -13,7 +13,7 @@ Homepage: https://www.parrotsec.org/
 Package: anonsurf
 Architecture: any
 Priority: optional
-Depends:apparmog,metadata-cleaner,ecryptfs-utils, zulucrypt-cli,zulumount-cli, bleachbit, connect-proxy, obfs4proxy, snowflake-client,tor-geoipdb,onioncircuits,haveged,jitterentropy-rngd,bash (>= 5.0),tor,vanguards,torsocks,apt-transport-tor, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
+Depends:apparmor,metadata-cleaner,ecryptfs-utils, zulucrypt-cli,zulumount-cli, bleachbit, connect-proxy, obfs4proxy, snowflake-client,tor-geoipdb,onioncircuits,haveged,jitterentropy-rngd,bash (>= 5.0),tor,vanguards,torsocks,apt-transport-tor, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
 Recommends: i2p-router, i2p, libnotify-bin, onionshare, parrot-menu, kali-menu, tb-updater, tb-default-browser, icon-pack-dist, usability-misc, parrot-meta-privacy,hexchat
 Rdepends:mint-meta-xfce,mint-meta-cinnamon,cinnamon,kali-desktop-xfce,kali-linux-everything,torbrowser-launcher
 Description: Anonymization toolkit for Parrot Security OS

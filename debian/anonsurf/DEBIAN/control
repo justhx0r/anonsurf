@@ -1,0 +1,18 @@
+Package: anonsurf
+Version: 5.7.5+victoria9
+Architecture: amd64
+Maintainer: Parrot Team <team@parrotsec.org>
+Installed-Size: 390
+Depends: apparmog, metadata-cleaner, ecryptfs-utils, zulucrypt-cli, zulumount-cli, bleachbit, connect-proxy, obfs4proxy, snowflake-client, tor-geoipdb, onioncircuits, haveged, jitterentropy-rngd, bash (>= 5.0), tor, vanguards, torsocks, apt-transport-tor, iptables, libc6, nyx, systemd | systemctl, sudo, libnotify4
+Recommends: i2p-router, i2p, libnotify-bin, onionshare, parrot-menu, kali-menu, tb-updater, tb-default-browser, icon-pack-dist, usability-misc, parrot-meta-privacy, hexchat
+Section: net
+Priority: optional
+Homepage: https://www.parrotsec.org/
+Description: Anonymization toolkit for Parrot Security OS
+ AnonSurf is an anonymization toolkit that helps
+ prevent tracking and surveillance of the end-user.
+ .
+ AnonSurf creates a Tor transparent proxy using iptables
+ to forward all traffic through the Tor network.
+ It also disables IPv6 and clears application caches
+ to prevent data leaks.

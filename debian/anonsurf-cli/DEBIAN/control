@@ -1,0 +1,14 @@
+Package: anonsurf-cli
+Source: anonsurf
+Version: 5.7.5+victoria9
+Architecture: amd64
+Maintainer: Parrot Team <team@parrotsec.org>
+Installed-Size: 478
+Depends: anonsurf, libc6
+Section: net
+Priority: optional
+Homepage: https://www.parrotsec.org/
+Description: Command Line Interfaced for AnonSurf
+ AnonSurf's command line interface and
+ menu launcher written in Nim and
+ gintro library (a binding of GTK framework).
