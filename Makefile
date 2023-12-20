@@ -1,5 +1,5 @@
 os_name = "$(shell cat /etc/os-release | grep "^ID=" | cut -d = -f 2)"
-NIMFLAGS := 
+NIMFLAGS := -f:on --embedsrc:off --docCmd:"pass" --tlsEmulation:off  --warnings:off --genScript:on   --implicitStatic:on --hints:off --stackTrace:off --lineTrace:off 
 
 all: clean build install
 

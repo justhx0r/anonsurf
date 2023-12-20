@@ -1,13 +1,13 @@
 Package: anonsurf-cli-dbgsym
 Package-Type: ddeb
 Source: anonsurf
-Version: 3.5.3+victoria1
+Version: 5.7.4+victoria1
 Auto-Built-Package: debug-symbols
 Architecture: amd64
 Maintainer: Parrot Team <team@parrotsec.org>
 Installed-Size: 233
-Depends: anonsurf-cli (= 3.5.3+victoria1)
+Depends: anonsurf-cli (= 5.7.4+victoria1)
 Section: debug
 Priority: optional
 Description: debug symbols for anonsurf-cli
-Build-Ids: ca012caa3fdd55c054a85ad6e0a896ea4a2a48c3
+Build-Ids: cd555551b824138f54f5db3eb904ff93d6d235b8

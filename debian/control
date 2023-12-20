@@ -13,9 +13,9 @@ Homepage: https://www.parrotsec.org/
 Package: anonsurf
 Architecture: any
 Priority: optional
-Depends:snowflake-client, bash (>= 5.0),apt-transport-tor,vanguards,torsocks,apt-transport-tor, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
-Recommends: i2p-router,i2p,tor-geoipdb,haveged,apt-transport-tor, libnotify-bin, connect-proxy, onionshare, torsocks, tor-geoipdb, parrot-menu
-Suggests: gnunet-gtk,snowflake-proxy, gnunet, vidalia, resolvconf
+Depends:apparmog,metadata-cleaner,ecryptfs-utils, zulucrypt-cli,zulumount-cli, bleachbit, connect-proxy, obfs4proxy, snowflake-client,tor-geoipdb,onioncircuits,haveged,jitterentropy-rngd,bash (>= 5.0),tor,vanguards,torsocks,apt-transport-tor, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
+Recommends: i2p-router, i2p, libnotify-bin, onionshare, parrot-menu, kali-menu, tb-updater, tb-default-browser, icon-pack-dist, usability-misc, parrot-meta-privacy,hexchat
+Rdepends:mint-meta-xfce,mint-meta-cinnamon,cinnamon,kali-desktop-xfce,kali-linux-everything,torbrowser-launcher
 Description: Anonymization toolkit for Parrot Security OS
  AnonSurf is an anonymization toolkit that helps
  prevent tracking and surveillance of the end-user.
@@ -28,7 +28,8 @@ Description: Anonymization toolkit for Parrot Security OS
 Package: anonsurf-gtk
 Architecture: any
 Priority: optional
-Depends: anonsurf, libc6,onionshare,onioncircuits
+Depends: anonsurf, libc6, onionshare, onioncircuits
+Rdepends:kali-luinux-everything,parrot-menu,torbrowser-launcher,mint-meta-cinnamon
 Description: Graphic Interface for AnonSurf
  AnonSurf's graphic user interface and
  menu launcher written in Nim and
@@ -38,7 +39,7 @@ Package: anonsurf-cli
 Architecture: any
 Priority: optional
 Depends: anonsurf, libc6
-Recommends: i2p,i2p-router
+Rdepends:kali-luinux-everything,parrot-menu,torbrowser-launcher,mint-meta-cinnamon
 Description: Command Line Interfaced for AnonSurf
  AnonSurf's command line interface and
  menu launcher written in Nim and

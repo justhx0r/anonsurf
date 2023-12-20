@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-
+export DH_VERBOSE = 1
 %:
 	dh $@ --with bash-completion
 # override_dh_auto_configure:
@@ -9,7 +9,9 @@ override_dh_installsystemd:
 override_dh_auto_build:
 	make build-parrot
 override_dh_auto_install:
+	cp debian/postinst debian/anonsurf/DEBIAN/
+    cp debian/prerm debian/anonsurf/DEBIAN
 # Install apparmor
 # Learned from Tor rule
-# override_dh_install-arch:
-# 	dh_apparmor --profile-name=usr.bin.anonsurf -panonsurf
+override_dh_install-arch:
+	dh_apparmor --profile-name=usr.bin.anonsurf -panonsurf

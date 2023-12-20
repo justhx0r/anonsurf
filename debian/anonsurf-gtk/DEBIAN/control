@@ -1,6 +1,6 @@
 Package: anonsurf-gtk
 Source: anonsurf
-Version: 3.5.3+victoria1
+Version: 5.7.4+victoria1
 Architecture: amd64
 Maintainer: Parrot Team <team@parrotsec.org>
 Installed-Size: 655

