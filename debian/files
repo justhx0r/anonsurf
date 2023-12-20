@@ -1,7 +1,0 @@
-anonsurf-cli-dbgsym_5.7.4+victoria1_amd64.ddeb debug optional automatic=yes
-anonsurf-cli_5.7.4+victoria1_amd64.deb net optional
-anonsurf-dbgsym_5.7.4+victoria1_amd64.ddeb debug optional automatic=yes
-anonsurf-gtk-dbgsym_5.7.4+victoria1_amd64.ddeb debug optional automatic=yes
-anonsurf-gtk_5.7.4+victoria1_amd64.deb net optional
-anonsurf_5.7.4+victoria1_amd64.buildinfo net optional
-anonsurf_5.7.4+victoria1_amd64.deb net optional

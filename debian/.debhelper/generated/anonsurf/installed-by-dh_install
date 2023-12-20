@@ -1,7 +1,0 @@
-./configs/onion.pac
-./configs/bridges.txt
-./bin/make-torrc
-./bin/dnstool
-./scripts/anondaemon
-./scripts/safekill
-./sys-units/anonsurfd.service

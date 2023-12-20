@@ -1,0 +1,7 @@
+#!/bin/sh
+deb-systemd-invoke "enable" "anonsurfd.service"
+deb-systemd-invoke "disable" "tor.service"
+deb-systemd-invoke "stop" "tor.service"
+deb-systemd-invoke "start" "anonsurfd.service"
+deb-systemd-invoke "restart" "anonsurfd.service"
+echo "Installed & started anonsurf"

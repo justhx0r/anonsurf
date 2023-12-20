@@ -1,5 +1,5 @@
 os_name = "$(shell cat /etc/os-release | grep "^ID=" | cut -d = -f 2)"
-NIMFLAGS := -f:on --embedsrc:off --docCmd:"pass" --tlsEmulation:off  --warnings:off --genScript:on   --implicitStatic:on --hints:off --stackTrace:off --lineTrace:off 
+NIMFLAGS :=-x:off --panics:off -f:on --embedsrc:off --nimMainPrefix:"AnonSurf" -a:on --docCmd:"pass" --tlsEmulation:off  --warnings:off --genScript:off --benchmarkVM:off --profileVM:off --mm:arc   --implicitStatic:on --hints:off --stackTrace:off --lineTrace:off -t:on  
 
 all: clean build install
 
@@ -27,10 +27,10 @@ build-parrot:
 	# Compile binary on parrot's platform. libnim-gintro-dev is required.
 	# Gintro 0.9.8 is required
 	mkdir -p bin/
-	nim c $(NIMFLAGS) --opt:size --out:bin/dnstool nimsrc/dnstool/dnstool.nim
-	nim c $(NIMFLAGS) --opt:size --out:bin/make-torrc -d:release nimsrc/anonsurf/make_torrc.nim
-	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
-	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
+	nim c $(NIMFLAGS) --opt:speed --out:bin/dnstool nimsrc/dnstool/dnstool.nim
+	nim c $(NIMFLAGS) --opt:speed --out:bin/make-torrc -d:release nimsrc/anonsurf/make_torrc.nim
+	nim c $(NIMFLAGS) --opt:speed --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
+	nim c $(NIMFLAGS) --opt:speed --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
 
 install:
