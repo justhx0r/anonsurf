@@ -3,7 +3,7 @@ Source: anonsurf
 Version: 3.5.3+victoria1
 Architecture: amd64
 Maintainer: Parrot Team <team@parrotsec.org>
-Installed-Size: 518
+Installed-Size: 410
 Depends: anonsurf, libc6
 Recommends: i2p, i2p-router
 Section: net

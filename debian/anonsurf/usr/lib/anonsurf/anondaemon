@@ -200,10 +200,10 @@ function stopSurf {
 
 	if [ "$(systemctl is-active tor)" == "active" ]
 	then
-		/usr/sbin/service tor stop
+        echo -e "$GREEN*$BLUE Tor process restarted"
+		/usr/sbin/service tor restart
 	fi
-	# sleep 1
-	killall tor
+	
 }
 
 

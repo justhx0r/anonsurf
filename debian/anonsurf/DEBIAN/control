@@ -2,7 +2,7 @@ Package: anonsurf
 Version: 3.5.3+victoria1
 Architecture: amd64
 Maintainer: Parrot Team <team@parrotsec.org>
-Installed-Size: 511
+Installed-Size: 335
 Depends: snowflake-client, bash (>= 5.0), apt-transport-tor, vanguards, torsocks, iptables, tor, libc6, nyx, systemd | systemctl, sudo, bleachbit, libnotify4
 Recommends: i2p-router, i2p, tor-geoipdb, haveged, libnotify-bin, connect-proxy, onionshare, parrot-menu
 Suggests: gnunet-gtk, snowflake-proxy, gnunet, vidalia, resolvconf

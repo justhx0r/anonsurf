@@ -20,7 +20,7 @@ uninstall:
 	rm /usr/bin/anonsurf-gtk
 	# Remove systemd unit
 	rm /lib/systemd/system/anonsurfd.service
-	# Remove launchers
+# Remove launchers
 	rm /usr/share/applications/anonsurf*.desktop
 
 build-parrot:
@@ -32,14 +32,6 @@ build-parrot:
 	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf-gtk -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfGTK.nim
 	nim c $(NIMFLAGS) --opt:size --out:bin/anonsurf -p:/usr/include/nim/ -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
-build:
-	# Build on other system. nimble install gintro is required
-	# Note: AnonSurf 3.3.2 was made with Gintro 0.9.6, and newer version comes with gintro 0.9.8 pre-release 
-	mkdir -p bin/
-	nim c $(NIMFLAGS) --out:bin/dnstool nimsrc/dnstool/dnstool.nim
-	nim c $(NIMFLAGS) --out:bin/make-torrc nimsrc/anonsurf/make_torrc.nim
-	nim c $(NIMFLAGS) --out:bin/anonsurf-gtk -d:release nimsrc/anonsurf/AnonSurfGTK.nim
-	nim c $(NIMFLAGS) --out:bin/anonsurf -d:release nimsrc/anonsurf/AnonSurfCli.nim
 
 install:
 	# Create all folders

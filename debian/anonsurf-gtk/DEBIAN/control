@@ -3,7 +3,7 @@ Source: anonsurf
 Version: 3.5.3+victoria1
 Architecture: amd64
 Maintainer: Parrot Team <team@parrotsec.org>
-Installed-Size: 691
+Installed-Size: 655
 Depends: anonsurf, libc6, onionshare, onioncircuits
 Section: net
 Priority: optional
